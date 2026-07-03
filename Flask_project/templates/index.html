@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Face Age Detection</title>
+
+<style>
+
+body{
+
+margin:0;
+
+font-family:Arial;
+
+background:linear-gradient(135deg,#0072ff,#00c6ff);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100vh;
+
+}
+
+.container{
+
+width:450px;
+
+background:white;
+
+padding:30px;
+
+border-radius:25px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+
+text-align:center;
+
+}
+
+h1{
+
+color:#1565c0;
+
+}
+
+.upload{
+
+border:3px dashed #64b5f6;
+
+padding:20px;
+
+border-radius:15px;
+
+margin-bottom:20px;
+
+}
+
+img{
+
+width:250px;
+
+height:250px;
+
+object-fit:cover;
+
+border-radius:15px;
+
+margin-top:15px;
+
+box-shadow:0 5px 15px gray;
+
+}
+
+button{
+
+margin-top:20px;
+
+padding:15px 40px;
+
+font-size:18px;
+
+background:#1565c0;
+
+color:white;
+
+border:none;
+
+border-radius:50px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#0d47a1;
+
+transform:scale(1.05);
+
+}
+
+.result{
+
+margin-top:25px;
+
+padding:20px;
+
+background:#e3f2fd;
+
+border-radius:15px;
+
+font-size:22px;
+
+font-weight:bold;
+
+color:#0d47a1;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Face Age Detection</h1>
+
+<form method="POST"
+
+action="/predict"
+
+enctype="multipart/form-data">
+
+<div class="upload">
+
+<input
+
+type="file"
+
+name="image"
+
+accept="image/*"
+
+onchange="loadFile(event)"
+
+required>
+
+<br>
+
+<img
+
+id="output"
+
+style="display:none;">
+
+</div>
+
+<button>
+
+Predict Age
+
+</button>
+
+</form>
+
+{% if prediction %}
+
+<div class="result">
+
+Predicted Age Group
+
+<br><br>
+
+{{prediction}}
+
+<br><br>
+
+<img src="{{image_path}}">
+
+</div>
+
+{% endif %}
+
+</div>
+
+<script>
+
+var loadFile=function(event){
+
+var image=document.getElementById('output');
+
+image.src=URL.createObjectURL(event.target.files[0]);
+
+image.style.display='block';
+
+}
+
+</script>
+
+</body>
+
+</html>
